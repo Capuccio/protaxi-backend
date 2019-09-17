@@ -129,8 +129,6 @@ rutas.post('/unidades/asignar', async (req, res) => {
                 Nuevo cliente asignado:
 
                 ${req.body.nombre} ${req.body.apellido}
-                ${req.body.celular}
-                ${req.body.telefono}
                 ${direccion}
                 `)
 
