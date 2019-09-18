@@ -130,7 +130,7 @@ rutas.post('/clientes/dato', async (req, res) => {
 
 rutas.post('/clientes/validar', async (req, res) => {
     const { celular, telefono } = req.body
-    Clientes.find({$or: [{celular: celular}, {telefono: telefono}]}, function(err, cliente) {
+    Clientes.findOne({$or: [{celular: celular}, {telefono: telefono}]}, function(err, cliente) {
         if (err) {
             console.log(err)
             res.json({
