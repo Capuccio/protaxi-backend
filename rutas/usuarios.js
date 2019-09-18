@@ -63,7 +63,7 @@ rutas.get('/clientes/:pagina', async (req, res, next) => {
 /** POST */
 rutas.post('/clientes/numero', async (req, res) => {
     const numero = req.body.numero
-    Clientes.find({$or: [{celular: numero}, {telefono: numero}]}, function(err, cliente) {
+    Clientes.findOne({$or: [{celular: numero}, {telefono: numero}]}, function(err, cliente) {
         if (err) {
             res.json({
                 error: true,
@@ -72,7 +72,7 @@ rutas.post('/clientes/numero', async (req, res) => {
             })
         }
 
-        if (cliente.length != 0) {
+        if (cliente) {
             res.json({
                 error: false,
                 servidor: false,
@@ -140,7 +140,7 @@ rutas.post('/clientes/validar', async (req, res) => {
             })
         }
 
-        if (cliente.length > 0) {
+        if (cliente) {
             res.json({
                 error: true,
                 servidor: false,
