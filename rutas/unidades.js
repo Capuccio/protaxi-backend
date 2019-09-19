@@ -71,7 +71,8 @@ rutas.get('/unidades/:pagina', async (req, res) => {
 /** POST */
 rutas.post('/unidades/asignar', async (req, res) => {
     const { numeroUnidad } = req.body
-    const { datosusuario } = req.headers
+    const { datosoperador } = req.headers
+    const { idUsuario } = req.body
 
     Unidades.findOne({numUnidad: numeroUnidad}, function(err, unidad) {
         if (err) {
@@ -84,8 +85,8 @@ rutas.post('/unidades/asignar', async (req, res) => {
 
         if (unidad) {
 
-            Clientes.findOne({$or: [{telefono: req.body.telefono}, {celular: req.body.celular}]}, async function(error, cliente) {
-                if (err) {
+            Clientes.findById(idUsuario, async function(error, cliente) {
+                if (error) {
                     res.json({
                         error: true,
                         servidor: true,
@@ -93,7 +94,7 @@ rutas.post('/unidades/asignar', async (req, res) => {
                     })
                 }
 
-                Operadores.findById(datosusuario, function(err, operador) {
+                Operadores.findById(datosoperador, function(err, operador) {
                     if (err) {
                         res.json({
                             error: true,
