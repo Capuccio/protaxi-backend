@@ -130,7 +130,7 @@ rutas.post('/clientes/dato', async (req, res) => {
 
 rutas.post('/clientes/validar', async (req, res) => {
     const { celular, telefono } = req.body
-    Clientes.findOne({$or: [{celular: celular}, {telefono: telefono}]}, function(err, cliente) {
+    Clientes.findOne({celular: celular}, async function(err, nroCelular) {
         if (err) {
             console.log(err)
             res.json({
@@ -140,18 +140,38 @@ rutas.post('/clientes/validar', async (req, res) => {
             })
         }
 
-        if (cliente) {
+        if (nroCelular) {
             res.json({
                 error: true,
                 servidor: false,
-                respuesta: 'El celular o teléfono colocado ya existe'
+                respuesta: 'El celular colocado ya existe'
             })
         } else {
-            res.json({
-                error: false,
-                servidor: false,
-                respuesta: 'Usuario no existente'
+
+            Clientes.findOne({telefono: telefono}, async function(err, nroTelefono) {
+                if (err) {
+                    res.json({
+                        error: true,
+                        servidor: true,
+                        respuesta: 'Error al validar datos, consulte al técnico'
+                    })
+                }
+
+                if (nroTelefono.telefono) {
+                    res.json({
+                        error: true,
+                        servidor: false,
+                        respuesta: 'El teléfono colocado ya existe'
+                    })
+                } else {
+                    res.json({
+                        error: false,
+                        servidor: false,
+                        respuesta: 'Usuario no existente'
+                    })
+                }
             })
+
         }
     })
 })

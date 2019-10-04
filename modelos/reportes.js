@@ -6,7 +6,8 @@ const ReportesSchema = mongoose.Schema({
     unidad: String,
     hora: String,
     fecha: String,
-    operador: String
+    operador: String,
+    descripcion: String,
 }, {versionKey: false})
 
 module.exports = mongoose.model('Reportes', ReportesSchema)

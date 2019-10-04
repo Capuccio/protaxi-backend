@@ -5,6 +5,23 @@ const Operadores = require('../modelos/operadores')
 const rutas = express()
 
 /** GET */
+rutas.post('/reportes/actualizarhora', async (req, res) => {
+    for (let i = 0; i < req.body.length; i++) {
+        Reportes.findByIdAndUpdate(req.body[i]._id, {$set: req.body[i]}).exec()
+    }
+
+    res.json({
+        respuesta: 'Listo'
+    })
+})
+
+rutas.get('/reportes', async (req, res) => {
+    Reportes.find(function(err, reportes) {
+        res.json({
+            datos: reportes
+        })
+    })
+})
 
 rutas.get('/reportes/:pagina', async (req, res) => {
     let porPagina = 10
@@ -22,8 +39,8 @@ rutas.get('/reportes/:pagina', async (req, res) => {
     .skip((porPagina * pagina) - porPagina)
     .limit(porPagina)
     .sort({
-        fecha: -1,
-        hora: -1
+        fecha: 'desc',
+        hora: 'desc',
     })
     .exec(function(err, reportes) {
         if (err) {

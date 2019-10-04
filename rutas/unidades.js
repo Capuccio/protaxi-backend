@@ -110,7 +110,8 @@ rutas.post('/unidades/asignar', async (req, res) => {
                             unidad: numeroUnidad,
                             hora: req.body.hora,
                             fecha: req.body.dia,
-                            operador: `${operador.nombre} ${operador.apellido}`
+                            operador: `${operador.nombre} ${operador.apellido}`,
+                            descripcion: req.body.descripcion
                         })
 
                         reportes.save()
@@ -133,6 +134,9 @@ rutas.post('/unidades/asignar', async (req, res) => {
 
                 Dirección:
                 ${direccion}
+
+                Descripción:
+                ${req.body.descripcion}
                 `)
 
                 res.json({
