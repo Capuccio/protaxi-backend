@@ -1,14 +1,14 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Backend de Sistema de Taxis",
+  "description": "Backend de la Aplicación de Taxis",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "José Cordova",
+  "author": "Fysewe",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",

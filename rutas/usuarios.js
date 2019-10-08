@@ -141,37 +141,46 @@ rutas.post('/clientes/validar', async (req, res) => {
         }
 
         if (nroCelular) {
+            if (nroCelular.celular != '') {
+                res.json({
+                    error: true,
+                    servidor: false,
+                    respuesta: 'El celular colocado ya existe'
+                })
+            }
+        }
+    })
+
+    Clientes.findOne({telefono: telefono}, async function(err, nroTelefono) {
+        if (err) {
             res.json({
                 error: true,
-                servidor: false,
-                respuesta: 'El celular colocado ya existe'
+                servidor: true,
+                respuesta: 'Error al validar datos, consulte al técnico'
             })
+        }
+
+        if (nroTelefono) {
+            if (nroTelefono.telefono != '') {
+                res.json({
+                    error: true,
+                    servidor: false,
+                    respuesta: 'El teléfono colocado ya existe'
+                })
+            } else {
+                res.json({
+                    error: false,
+                    servidor: false,
+                    respuesta: 'Usuario no existente'
+                })
+            }
+            
         } else {
-
-            Clientes.findOne({telefono: telefono}, async function(err, nroTelefono) {
-                if (err) {
-                    res.json({
-                        error: true,
-                        servidor: true,
-                        respuesta: 'Error al validar datos, consulte al técnico'
-                    })
-                }
-
-                if (nroTelefono.telefono) {
-                    res.json({
-                        error: true,
-                        servidor: false,
-                        respuesta: 'El teléfono colocado ya existe'
-                    })
-                } else {
-                    res.json({
-                        error: false,
-                        servidor: false,
-                        respuesta: 'Usuario no existente'
-                    })
-                }
+            res.json({
+                error: false,
+                servidor: false,
+                respuesta: 'Usuario no existente'
             })
-
         }
     })
 })

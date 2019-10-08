@@ -16,7 +16,7 @@ app.use(require('./rutas/operadores'))
 
 /** Conexión a la Base de Datos */
 mongoose.connect('mongodb://localhost/protaxi', { useNewUrlParser: true })
-.then(db => console.log('Se logró conectar a la Base de Datos, Protaxi'))
+.then(db => console.log('Se logró conectar a la Base de Datos, protaxi'))
 .catch(error => console.log('No se logró conectar a la base de datos: ', error))
 
 /** Levantando API */

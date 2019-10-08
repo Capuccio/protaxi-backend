@@ -128,7 +128,7 @@ rutas.post('/unidades/asignar', async (req, res) => {
                 const direccion = req.body.direccion == 1 ? cliente.direccionUno : cliente.direccionDos
 
                 bot.sendMessage(unidad.chatId, `
-                PROTAXI SA
+                LineaTaxi
                 Cliente asignado:
                 ${req.body.nombre} ${req.body.apellido}
 
